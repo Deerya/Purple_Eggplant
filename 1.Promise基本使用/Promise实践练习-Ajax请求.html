@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Promise 封装 Ajax</title>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Promise 封装 Ajax 操作</h2>
+			<button type="button" id="btn">点击发送Ajax</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const btn = document.querySelector('#btn');
+		btn.addEventListener('click',function(){
+			// 创建对象
+			const xhr = new XMLHttpRequest()
+			// 初始化
+			xhr.open('GET','https://api.apiopen.top/getJoke');
+			// 发送
+			xhr.send();
+			//处理响应结果
+			 xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4){
+					if(xhr.status >= 200 && xhr.status < 300){
+						// 控制台输出响应体
+						console.log(xhr.response);
+					}else{
+						// 控制台输出响应状态码
+						console.log(xhr.status);
+					}
+				}
+			 }
+		})
+	</script>
+</html>
