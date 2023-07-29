@@ -11,7 +11,7 @@ function mineReadFile(path){
 
 mineReadFile('./resource/content.txt')
 .then(value=>{
-// 输出文件内容
+// 输出本地文件内容
 console.log(value.toString());
 },reason=>{
 // 
