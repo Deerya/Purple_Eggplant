@@ -27,11 +27,10 @@
             }
         })
     };
-
+    // 此接口在https://api.apiopen.top/swagger/index.html自行调试
     sendAjax('https://api.apiopen.top/api/getImages?page=0&size=10')
     .then(value=>{
         console.log(value);
-        console.log(value.result.list);
     },reason=>{
         console.warn(reason);
     })
