@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中断 Promise 链条</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let p = new Promise((resolve,reject)=>{
+        setTimeout(() => {
+            // 成功
+            resolve('OK')
+
+            // 失败
+            // reject('err')
+        }, 1000);
+    })
+
+    p.then(value=>{
+        console.log(111);
+        
+        // 中断 Promise 链条 有且只有一个方式
+        return new Promise((resolve,reject)=>{})
+    }).then(value=>{
+        console.log(222);
+    }).then(value=>{
+        console.log(333);
+    }).catch(reason=>{
+        console.log(reason);
+    })
+</script>
+</html>

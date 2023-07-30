@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise 改变状态与指定回调</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 同步任务，先改变状态再执行回调
+
+    // 异步任务，先执行回调再改变状态
+    let p = new Promise((resolve,reject)=>{
+        // setTimeout(() => {
+            resolve('OK');
+        // }, 1000);
+    })
+
+    p.then(value=>{
+        console.log(value);
+    },reason=>{
+
+    })
+</script>
+</html>

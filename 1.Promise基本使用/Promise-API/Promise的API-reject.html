@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise API reject</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // reject永远是失败的结果，传入什么，什么就是失败！
+    let p3 = Promise.reject(new Promise((resolve,reject)=>{
+        resolve('OK');
+    }))
+    console.log(p3);
+</script>
+</html>
