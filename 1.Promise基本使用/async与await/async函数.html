@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async函数</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 与 then 函数返回值相同
+    async function main(){
+        // 1.如果返回值是一个非 Promise 类型的数据
+        // return 5555;
+
+        // 2.如果返回值是 Promise 类型的数据
+        // return new Promise((resolve,reject)=>{
+            // resolve('OK');
+            // reject('error')
+        // })
+
+        // 3.抛出异常
+        throw "NO NO NO"
+    }
+
+    let result = main();
+    console.log(result);
+</script>
+</html>
