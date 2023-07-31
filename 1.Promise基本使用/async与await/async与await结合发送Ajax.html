@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>async与await结合发送Ajax</title>
 </head>
+<style>
+    img{
+        /* width: 100; */
+    }
+</style>
 <body>
-    <div id="ttt">
-    </div>
+    <div id="ttt"></div>
     <button id="btn">点击获取图片</button>
 </body>
 <script>
@@ -32,24 +36,28 @@
 
     // 图片接口地址 https://api.apiopen.top/api/getImages?page=0&size=10
     let btn = document.querySelector('#btn')
+    // 获取图片容器元素
+    let ImageContainer = document.querySelector('#ttt')
+    // 设置点击事件
     btn.addEventListener('click',async function(){
         // 获取图片信息
         let tupian = await sendAjax('https://api.apiopen.top/api/getImages?page=0&size=10')
         .then(err=>{
-            let sss = err.result.list
-            // let iii = document.querySelector('.img')
-            
-            let ttt = document.querySelector('#ttt')
-            sss.forEach(function (data) {
-                console.log(data);
-                let po =
-                 `
-                    <img src=${data.url} width="300">
-                `
-                ttt.append(po)
-                // iii.src = data.url
+            // 获取的数据，赋值给imgList
+            let imgList = err.result.list
+            // 遍历数据
+            imgList.forEach(function (data) {
+                // 打印遍历后的数据
+                // console.log(data);
+
+                // 创建 img 元素
+                let imgs = document.createElement('img')
+                // 给创建的 img 元素中的 src 赋值
+                imgs.setAttribute('src',`${data.url}`)
+                imgs.setAttribute('width','600')
+                // 把 img 完成体放入图片容器 ImageContainer 内
+                ImageContainer.appendChild(imgs)
             });
-            // console.log(sss,iii);
         },v=>{
             console.log(v);
         })
