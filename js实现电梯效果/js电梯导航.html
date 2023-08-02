@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电梯导航</title>
+</head>
+<style>
+    #constents{
+        width: 100%;
+        height: 100%;
+        display: flex
+    }
+    .liftButton{
+        width: 25%;
+        height: 100%;
+        background-color: #6ac5f3;
+        text-align: center;
+    }
+    .liftButton>div{
+        padding: 3px;
+        margin: 2px 0;
+        cursor: pointer;
+        color: #4d5253;
+    }
+    .liftButton>div:hover{
+        background-color: #fff;
+    }
+    .liftBox{
+        width: 40%;
+        height: 300px;
+        overflow-y: auto;
+        text-align: center;
+        /* 滚动条动画 */
+        scroll-behavior: smooth;
+    }
+    .liftBox>div:first-child{
+        margin-top: 0;
+        padding-top: 0;
+    }
+    .img_r{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 4px 0 ;
+        padding: 4px 0;
+        background-color: #e4e4e4;
+    }
+    .img_r p{
+        width: 100%;
+        background-color: #c5c5c5;
+    }
+    .img_r img{
+        margin: 2px;
+        width: 80px;
+    }
+    .active{
+        background-color: #fff;
+        color: #f53333 !important;
+    }
+</style>
+<body>
+    <h2>promise 中的 async 与 await 结合发送 Ajax ， 纯js 实现电梯导航</h2>
+    <div id="constents">
+        <div class="liftButton"></div>
+        <div class="liftBox"></div>
+    </div>
+</body>
+<script>
+    // 数据接口
+    // https://www.chawo.com/mobile/index.php?act=index&op=getCategoryPageData&key=b30995f0509ba175ac93b33708d1cfa5&xxclient=new
+    // promise 请求数据
+    function sendAjax(url){
+        return new Promise((resolve,reject)=>{
+            const xhr = new XMLHttpRequest();
+            // 转换成json格式
+            xhr.responseType = 'json';
+            xhr.open("GET",url);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState === 4){
+                    if(xhr.status>=200 && xhr.status<300){
+                        resolve(xhr.response)
+                    }else{
+                        reject(xhr.status)
+                    }
+                }
+            }
+        })
+    }
+
+    // 获取容器元素
+    let liftButton = document.querySelector('.liftButton')
+    let liftBox = document.querySelector('.liftBox')
+
+    // 获取数据
+    async function main(){
+        // 获取图片信息
+        await sendAjax('https://www.chawo.com/mobile/index.php?act=index&op=getCategoryPageData&key=b30995f0509ba175ac93b33708d1cfa5&xxclient=new')
+        .then(err=>{
+            // 获取的 数据 ，赋值给 liftDataBtn
+            let liftDataBtn = err.datas
+            // console.log(liftDataBtn);
+
+            // 遍历数据
+            liftDataBtn.forEach(function (data,index) {
+                // 打印遍历后的数据
+                // console.log(index);
+
+                // 创建按钮div元素
+                let divBtn = document.createElement('div')
+                // 给创建的div元素赋值
+                divBtn.innerText = data.name
+                // 给 divBtn 创建 class 属性
+                divBtn.setAttribute('class',`${index}`)
+                // 给 divBtn 创建 点击事件 btn()
+                divBtn.setAttribute('onclick','btn()')
+
+
+                // 把 divBtn 完成体放入容器 liftButton 内
+                liftButton.appendChild(divBtn)
+
+                // 把遍历的数据 data.foods 放入 liftDataDatas
+                let liftDataDatas = data.foods
+                // console.log(liftDataDatas);
+
+                // 创建 div 元素
+                let imgsBox = document.createElement('div')
+
+                // 品牌名
+                let ppo = []
+                ppo = data.name
+                // 创建 p 元素
+                let categoryName = document.createElement('p')
+                categoryName.innerText=ppo
+                imgsBox.appendChild(categoryName)
+
+                // 遍历分类品牌数据
+                liftDataDatas.forEach(data => {
+                    // console.log(data);
+                    // 创建 img 元素
+                    let imgs = document.createElement('img')
+
+                    // 给创建的 img 元素中的 src 赋值
+                    imgs.setAttribute('src',`${data.icon}`)
+                    // 给 imgsBox 元素创建 class 并赋值
+                    imgsBox.setAttribute('class',`img_r`)
+                    // 把 imgs 添加到 imgsBox中
+                    imgsBox.appendChild(imgs)
+                });
+                // 把 imgsBox 添加到 liftBox 中
+                liftBox.appendChild(imgsBox)
+            });
+        },v=>{
+            console.log(v);
+        })
+    }
+
+    // 调用
+    main();
+
+    // 点击页面滑动
+    function btn(){
+        // 获取点击事件本身元素 本原 位置
+        let primitive = event.target||window.event.srcElement
+        // console.log(primitive.className);
+        // 获取按钮的 class 第一个属性
+        let location = primitive.className[0]
+        // 给 primitive 添加 class 属性，值为 active 
+        primitive.classList.add('active')
+        // console.log();
+        // 获得对应的大盒子的位置
+        let contentPrimitive = primitive.parentNode.nextSibling.nextSibling.children[location].offsetTop
+        // liftBox.scrollTop-72 是因为盒子头部有高度
+        liftBox.scrollTop = contentPrimitive-72
+    }
+
+    // 盒子滚动触发事件
+    liftBox.addEventListener('scroll',function () {
+        // 移除类
+        const old = document.querySelector('.liftButton .active')
+        if(old) old.classList.remove('active')
+        // 把电梯箱 liftBox 中的所有子元素赋值给 dahezi
+        let dahezi = liftBox.childNodes
+        // 遍历 dahezi
+        dahezi.forEach(function(data , index) {
+            // 判断是否在可视窗口
+            // liftBox.scrollTop+72 是因为盒子头部有高度
+            if(liftBox.scrollTop+72 >= data.offsetTop){
+                // 移除所有 active 类名
+                const old = document.querySelector('.liftButton .active')
+                if(old) old.classList.remove('active')
+                // liftBox 滚动到相应位置后，liftButton 中的相应按钮触发
+                liftButton.childNodes[index].classList.add('active');
+            }
+        })
+    })
+
+</script>
+</html>
