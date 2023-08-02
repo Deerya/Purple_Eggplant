@@ -159,8 +159,11 @@
     // 调用
     main();
 
-    // 点击页面滑动
+    // 点击按钮页面滑动
     function btn(){
+        // 移除类
+        const old = document.querySelector('.liftButton .active')
+        if(old) old.classList.remove('active')
         // 获取点击事件本身元素 本原 位置
         let primitive = event.target||window.event.srcElement
         // console.log(primitive.className);
