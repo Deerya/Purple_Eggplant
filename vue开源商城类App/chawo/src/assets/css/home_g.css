@@ -1,0 +1,103 @@
+/* 整体布局 */
+#id {
+	background-color: #F3F4F6;
+}
+
+#id .Home_g_header {
+	display: flex;
+	align-items: center;
+}
+
+.Home_g_header .logo {
+	margin: 0 .1rem;
+}
+
+.Home_g_header .logo img {
+	transform: rotateZ(180deg);
+}
+
+.Home_g_header .logo,
+.Home_g_header .btn {
+	width: .88rem;
+	line-height: .88rem;
+	text-align: center;
+}
+
+.Home_g_header input {
+	border-radius: .88rem;
+	line-height: .58rem;
+	height: .58rem;
+	flex: 1;
+	padding: 0 .1rem;
+	border: none;
+	background-color: #F2F2F2;
+}
+
+.Home_g_header {
+	background-color: #E52652;
+	height: .88rem;
+	top: 0;
+	position: absolute;
+	width: 100%;
+}
+
+#id .Home_g_classify {
+	width: 100%;
+	height: .7rem;
+	padding: 0 15px;
+	position: absolute;
+	top: .88rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #FFFFFF;
+}
+
+#id .Home_g_classify>div {
+	display: flex;
+	align-items: center;
+}
+
+#id .Home_g_classify p {
+	margin-right: 3px;
+}
+
+#id .Home_g_content {
+	position: absolute;
+	top: 1.58rem;
+	bottom: 0;
+	overflow-y: auto;
+}
+
+#id .Home_g_content>div{
+	border-radius: 6px;
+	margin-bottom: 15px;
+	overflow: hidden;
+	padding: 10px;
+}
+.vue-waterfall-column>div{
+	margin-bottom: 15px;
+	background-color: #FFFFFF;
+	width: 96%;
+}
+.Home_g_content .label{
+	border-radius: 4px;
+	padding: 0px 2px 1px;
+	font-size: 10px;
+	display: inline-block;
+	color: #C9141C;
+	border: 1px solid #C9141C;
+	margin: 10px 5px 0;
+}
+.Home_g_content .price{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	color: #C9141C;
+	line-height: 20px;
+	padding: 10px 6px 10px;
+}
+.Home_g_content .price p:nth-of-type(2){
+	font-size: 12px;
+	color: #000000;
+}
