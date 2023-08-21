@@ -102,9 +102,9 @@
 		cursor: pointer;
 		position: relative;
 	}
-	input{
+	/* input{ */
 		/* display: none; */
-	}
+	/* } */
 	label::before{
 		display: inline-block;
 		content: "";

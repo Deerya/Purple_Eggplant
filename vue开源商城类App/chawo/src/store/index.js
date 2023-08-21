@@ -86,11 +86,12 @@ export default new Vuex.Store({
 	mutations: {
 		// state 是上方存储数据的根目录，value 是组件调用下面方法传递过来的数据
         ADD_PERSON(state,value){
-            console.log('mutations 中的 ADD_PERSON 被调用了',state.goods)
+            // console.log('mutations 中的 ADD_PERSON 被调用了',state.goods)
 			console.log(value)
 			state.goods.unshift(value)
 			const ppop = state.goods
 			localStorage.setItem('goods_p',JSON.stringify(ppop))
+			console.log(ppop);
         },
 		addScore(state,step=1){
 			state.score+=step;
