@@ -165,7 +165,7 @@ class Promise{
         });
     }
 
-    // 封装 all 方法
+    // 封装 race 方法
     static race(promises) {
         // 返回一个 Promise 对象
         return new Promise((resolve,reject)=>{
